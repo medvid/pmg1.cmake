@@ -1,0 +1,98 @@
+[
+    {
+        "name": "PMG1-CY7110/NOOS/GCC",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7110",
+            "OS": "NOOS",
+            "TOOLCHAIN": "GCC"
+        }
+    },
+    {
+        "name": "PMG1-CY7110/NOOS/ARM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7110",
+            "OS": "NOOS",
+            "TOOLCHAIN": "ARM"
+        }
+    },
+    {
+        "name": "PMG1-CY7110/NOOS/IAR",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7110",
+            "OS": "NOOS",
+            "TOOLCHAIN": "IAR"
+        }
+    },
+    {
+        "name": "PMG1-CY7110/NOOS/LLVM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7110",
+            "OS": "NOOS",
+            "TOOLCHAIN": "LLVM"
+        }
+    },
+    {
+        "name": "PMG1-CY7111/NOOS/GCC",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7111",
+            "OS": "NOOS",
+            "TOOLCHAIN": "GCC"
+        }
+    },
+    {
+        "name": "PMG1-CY7111/NOOS/ARM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7111",
+            "OS": "NOOS",
+            "TOOLCHAIN": "ARM"
+        }
+    },
+    {
+        "name": "PMG1-CY7111/NOOS/IAR",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7111",
+            "OS": "NOOS",
+            "TOOLCHAIN": "IAR"
+        }
+    },
+    {
+        "name": "PMG1-CY7111/NOOS/LLVM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7111",
+            "OS": "NOOS",
+            "TOOLCHAIN": "LLVM"
+        }
+    },
+    {
+        "name": "PMG1-CY7112/NOOS/GCC",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7112",
+            "OS": "NOOS",
+            "TOOLCHAIN": "GCC"
+        }
+    },
+    {
+        "name": "PMG1-CY7112/NOOS/ARM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7112",
+            "OS": "NOOS",
+            "TOOLCHAIN": "ARM"
+        }
+    },
+    {
+        "name": "PMG1-CY7112/NOOS/IAR",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7112",
+            "OS": "NOOS",
+            "TOOLCHAIN": "IAR"
+        }
+    },
+    {
+        "name": "PMG1-CY7112/NOOS/LLVM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7112",
+            "OS": "NOOS",
+            "TOOLCHAIN": "LLVM"
+        }
+    }
+]
