@@ -1,6 +1,6 @@
 # CMake based build system for PMG1 designs
 
-[![Build Status](https://dev.azure.com/vmedvid/pmg1.cmake/_apis/build/status/medvid.pmg1.cmake?branchName=master)](https://dev.azure.com/vmedvid/pmg1.cmake/_build/latest?definitionId=10&branchName=master)
+[![Build Status](https://dev.azure.com/vmedvid/pmg1.cmake/_apis/build/status/medvid.pmg1.cmake?branchName=master)](https://dev.azure.com/vmedvid/pmg1.cmake/_build/latest?definitionId=16&branchName=master)
 
 ## Prerequisites
 
@@ -257,15 +257,15 @@ Build all PMG1-CY7110 and PMG1-CY7111 BSP compatible applications in Debug mode:
 
     ./ci/build-all.sh -b PMG1-CY7110 -b PMG1-CY7111 -c Debug
 
-Build all FreeRTOS enabled applications in Release mode:
+Build all applications in Release mode:
 
-    ./ci/build-all.sh -o FREERTOS -c Release
+    ./ci/build-all.sh -c Release
 
 #### Azure Pipelines
 
 Azure Pipeline is executed for each commit in master and each GitHub Pull Request:
 
-https://dev.azure.com/vmedvid/pmg1.cmake/_build?definitionId=4&_a=summary
+https://dev.azure.com/vmedvid/pmg1.cmake/_build?definitionId=16&_a=summary
 
 The pipeline builds all applications with GCC 10.2.1 toolchain on [vmmedvid/psoc6.cmake](https://hub.docker.com/r/vmmedvid/psoc6.cmake) Docker image.
 The docker image is built on top of unofficial ModusToolbox Docker image: [vmmedvid/modustoolbox](https://hub.docker.com/r/vmmedvid/modustoolbox).
