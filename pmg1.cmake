@@ -505,6 +505,11 @@ macro(pmg1_add_executable)
     list(PREPEND TARGET_LINK_LIBRARIES bsp)
   endif()
 
+   # Explicitly link the startup source for armlink
+  if(${TOOLCHAIN} STREQUAL ARM)
+    target_sources(${TARGET_NAME} PRIVATE ${BSP_STARTUP})
+  endif()
+
   # Check if the application provides custom design.modus
   if(DEFINED TARGET_DESIGN_MODUS)
     pmg1_add_design_modus(
@@ -669,11 +674,14 @@ endmacro()
 
 # Add BSP startup sources
 macro(pmg1_add_bsp_startup startup linker_script)
-  set(BSP_STARTUP_NAME ${startup})
+  set(BSP_STARTUP ${BSP_DIR}/startup_${startup}.c)
+  if(NOT ${TOOLCHAIN} STREQUAL ARM)
+    list(APPEND BSP_SOURCES ${BSP_STARTUP})
+  endif()
+
   set(BSP_LINKER_SCRIPT_NAME ${linker_script})
   list(APPEND BSP_SOURCES ${BSP_DIR}/system_cat2.h)
   list(APPEND BSP_SOURCES ${BSP_DIR}/system_cat2.c)
-  list(APPEND BSP_SOURCES ${BSP_DIR}/startup_${BSP_STARTUP_NAME}.c)
   if(${TOOLCHAIN} STREQUAL GCC)
     set(BSP_LINKER_SCRIPT ${BSP_DIR}/TOOLCHAIN_GCC_ARM/${BSP_LINKER_SCRIPT_NAME}.ld)
   elseif(${TOOLCHAIN} STREQUAL ARM)
