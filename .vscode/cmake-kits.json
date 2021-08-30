@@ -94,5 +94,37 @@
             "OS": "NOOS",
             "TOOLCHAIN": "LLVM"
         }
+    },
+    {
+        "name": "PMG1-CY7113/NOOS/GCC",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7113",
+            "OS": "NOOS",
+            "TOOLCHAIN": "GCC"
+        }
+    },
+    {
+        "name": "PMG1-CY7113/NOOS/ARM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7113",
+            "OS": "NOOS",
+            "TOOLCHAIN": "ARM"
+        }
+    },
+    {
+        "name": "PMG1-CY7113/NOOS/IAR",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7113",
+            "OS": "NOOS",
+            "TOOLCHAIN": "IAR"
+        }
+    },
+    {
+        "name": "PMG1-CY7113/NOOS/LLVM",
+        "cmakeSettings": {
+            "TARGET": "PMG1-CY7113",
+            "OS": "NOOS",
+            "TOOLCHAIN": "LLVM"
+        }
     }
 ]

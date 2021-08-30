@@ -1,7 +1,7 @@
 # Download BSP sources from GitHub
 pmg1_load_bsp(
   NAME PMG1-CY7110
-  VERSION 1.1.0
+  VERSION 1.2.0
 )
 
 # Set target MPN
@@ -32,16 +32,6 @@ pmg1_add_bsp_startup(pmg1s0 pmg1s0)
 # Define BSP library
 add_library(bsp STATIC EXCLUDE_FROM_ALL ${BSP_SOURCES})
 target_link_libraries(bsp PUBLIC ${BSP_LINK_LIBRARIES})
-
-# Load library definitions
-include(lib/cmsis.cmake)
-include(lib/core-lib.cmake)
-include(lib/mtb-pdl-cat2.cmake)
-
-# Include common libraries
-include(lib/mtb-hal-cat2.cmake)
-include(lib/retarget-io.cmake)
-include(lib/pdstack.cmake)
 
 # Define custom recipes for BSP generated sources
 pmg1_add_bsp_design_modus(${BSP_DIR}/COMPONENT_BSP_DESIGN_MODUS/design.modus)

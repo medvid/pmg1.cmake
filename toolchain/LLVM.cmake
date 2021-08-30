@@ -61,6 +61,12 @@ set(TOOLCHAIN_LSFLAGS "-T")
 set(TOOLCHAIN_MAPFILE "-Wl,-Map,")
 set(TOOLCHAIN_PREINCLUDE "-include ")
 
+# Linker script suffix
+set(TOOLCHAIN_SUFFIX_LS ".ld")
+
+# ModusToolbox toolchain name
+set(MTB_TOOLCHAIN "GCC_ARM")
+
 # https://reproducible-builds.org/docs/build-path/
 if(CMAKE_C_COMPILER_VERSION VERSION_GREATER_EQUAL 11)
   file(RELATIVE_PATH _file_prefix ${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR})
@@ -75,7 +81,7 @@ set(LLVM_PORT_DIR ${CMAKE_SOURCE_DIR}/toolchain/llvm)
 # Use GCC standard libraries
 include_directories(${CY_TOOLS_PATHS}/gcc/arm-none-eabi/include)
 set(NEWLIB_LIB_DIR ${CY_TOOLS_PATHS}/gcc/arm-none-eabi/lib/thumb/v6-m/nofp)
-set(GCC_LIB_DIR ${CY_TOOLS_PATHS}/gcc/lib/gcc/arm-none-eabi/9.3.1/thumb/v6-m/nofp)
+set(GCC_LIB_DIR ${CY_TOOLS_PATHS}/gcc/lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp)
 set(GCC_LINK_LIBRARIES
   -L${GCC_LIB_DIR}
   -L${NEWLIB_LIB_DIR}

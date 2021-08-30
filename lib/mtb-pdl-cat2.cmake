@@ -1,14 +1,14 @@
 pmg1_load_library(
   NAME mtb-pdl-cat2
-  VERSION 1.1.0
+  VERSION 1.3.0
 )
 
 set(MTB_PDL_CAT2_SOURCES
-  ${MTB_PDL_CAT2_DIR}/devices/include/cypd8125_48lqxi.h
   ${MTB_PDL_CAT2_DIR}/devices/include/cypd8225_97bzxit.h
   ${MTB_PDL_CAT2_DIR}/devices/include/cypm1011_24lqxi.h
   ${MTB_PDL_CAT2_DIR}/devices/include/cypm1111_40lqxit.h
   ${MTB_PDL_CAT2_DIR}/devices/include/cypm1211_40lqxit.h
+  ${MTB_PDL_CAT2_DIR}/devices/include/cypm1211_42fnxit.h
   ${MTB_PDL_CAT2_DIR}/devices/include/cypm1311_48lqxi.h
   ${MTB_PDL_CAT2_DIR}/devices/include/cypm1322_97bzxit.h
   ${MTB_PDL_CAT2_DIR}/devices/include/cy_device_headers.h
@@ -19,8 +19,10 @@ set(MTB_PDL_CAT2_SOURCES
   ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s0_24_qfn_pmg1_s0.h
   ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s1_40_qfn_pmg1_s1.h
   ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s2_40_qfn_pmg1_s2.h
-  ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s3_48_qfn.h
-  ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s3_97_bga.h
+  ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s2_42_csp_pmg1_s2.h
+  ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s3_48_qfn_cypm1311.h
+  ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s3_97_bga_cypd8225.h
+  ${MTB_PDL_CAT2_DIR}/devices/include/gpio_pmg1s3_97_bga_cypm1322.h
   ${MTB_PDL_CAT2_DIR}/devices/include/pmg1s0_config.h
   ${MTB_PDL_CAT2_DIR}/devices/include/pmg1s1_config.h
   ${MTB_PDL_CAT2_DIR}/devices/include/pmg1s2_config.h
@@ -60,14 +62,25 @@ set(MTB_PDL_CAT2_SOURCES
   ${MTB_PDL_CAT2_DIR}/devices/include/ip/cyip_spcif_v5.h
   ${MTB_PDL_CAT2_DIR}/devices/include/ip/cyip_srsslt.h
   ${MTB_PDL_CAT2_DIR}/devices/include/ip/cyip_tcpwm_v2.h
-  ${MTB_PDL_CAT2_DIR}/devices/include/ip/cyip_usbdevv2_v2.h
+  ${MTB_PDL_CAT2_DIR}/devices/include/ip/cyip_usbfs_v2.h
   ${MTB_PDL_CAT2_DIR}/devices/include/ip/cyip_wco.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_canfd.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto_aes.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto_common.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto_crc.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto_hw.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto_prng.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto_sha.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_crypto_trng.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_csd.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_ctb.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_device.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_dmac.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_flash.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_gpio.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_i2s.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_lpcomp.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_msc.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_pdl.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_sar.h
@@ -76,6 +89,7 @@ set(MTB_PDL_CAT2_SOURCES
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_scb_i2c.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_scb_spi.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_scb_uart.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_seglcd.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_smartio.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_sysclk.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_sysint.h
@@ -87,6 +101,9 @@ set(MTB_PDL_CAT2_SOURCES
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_tcpwm_pwm.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_tcpwm_quaddec.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_trigmux.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_usbfs_dev_drv.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_usbfs_dev_drv_pvt.h
+  ${MTB_PDL_CAT2_DIR}/drivers/include/cy_usbfs_dev_drv_reg.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_usbpd_bch.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_usbpd_common.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_usbpd_defines.h
@@ -97,10 +114,18 @@ set(MTB_PDL_CAT2_SOURCES
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_wdc.h
   ${MTB_PDL_CAT2_DIR}/drivers/include/cy_wdt.h
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_canfd.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_crypto_aes.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_crypto_crc.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_crypto_hw.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_crypto_sha.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_crypto_trng.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_csd.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_ctb.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_dmac.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_flash.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_gpio.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_i2s.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_lpcomp.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_msc.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_sar.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_scb_common.c
@@ -108,6 +133,7 @@ set(MTB_PDL_CAT2_SOURCES
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_scb_i2c.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_scb_spi.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_scb_uart.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_seglcd.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_smartio.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_sysclk.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_sysint.c
@@ -118,6 +144,9 @@ set(MTB_PDL_CAT2_SOURCES
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_tcpwm_pwm.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_tcpwm_quaddec.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_trigmux.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_usbfs_dev_drv.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_usbfs_dev_drv_io.c
+  ${MTB_PDL_CAT2_DIR}/drivers/source/cy_usbfs_dev_drv_io_dma.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_usbpd_bch.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_usbpd_phy.c
   ${MTB_PDL_CAT2_DIR}/drivers/source/cy_usbpd_typec.c

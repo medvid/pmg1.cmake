@@ -10,7 +10,7 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 if(DEFINED ENV{IAR_TOOLCHAIN_PATH})
   set(IAR_TOOLCHAIN_DEFAULT_PATH "$ENV{IAR_TOOLCHAIN_PATH}")
 else()
-  set(IAR_TOOLCHAIN_DEFAULT_PATH "C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.4/arm")
+  set(IAR_TOOLCHAIN_DEFAULT_PATH "C:/Program Files/IAR Systems/Embedded Workbench 9.0/arm")
 endif()
 set(IAR_TOOLCHAIN_PATH ${IAR_TOOLCHAIN_DEFAULT_PATH} CACHE PATH "IAR toolchain path")
 
@@ -55,6 +55,12 @@ set(CMAKE_EXE_LINKER_FLAGS_CM0P " --cpu Cortex-M0+" CACHE INTERNAL "Linker flags
 set(TOOLCHAIN_LSFLAGS "--config=")
 set(TOOLCHAIN_MAPFILE "--map=")
 set(TOOLCHAIN_PREINCLUDE "--preinclude=")
+
+# Linker script suffix
+set(TOOLCHAIN_SUFFIX_LS ".icf")
+
+# ModusToolbox toolchain name
+set(MTB_TOOLCHAIN "IAR")
 
 # RTOS: configure the full runtime library for use with threads
 if(NOT ${OS} STREQUAL NOOS)

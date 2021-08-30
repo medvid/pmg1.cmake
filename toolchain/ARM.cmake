@@ -59,6 +59,12 @@ set(TOOLCHAIN_LSFLAGS "--scatter ")
 set(TOOLCHAIN_MAPFILE "--map --list ")
 set(TOOLCHAIN_PREINCLUDE "-include")
 
+# Linker script suffix
+set(TOOLCHAIN_SUFFIX_LS ".sct")
+
+# ModusToolbox toolchain name
+set(MTB_TOOLCHAIN "ARM")
+
 # Suppress ARM Linker warnings:
 # L6314W: No section matches pattern
 # L6329W: Pattern only matches removed unused sections

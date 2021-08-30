@@ -1,7 +1,7 @@
 pmg1_load_library(
   NAME cmsis
   URL  https://github.com/ARM-software/CMSIS_5
-  TAG  5.7.0
+  TAG  5.8.0
 )
 
 set(CMSIS_CORE_SOURCES
@@ -12,9 +12,7 @@ set(CMSIS_CORE_INCLUDE_DIRS
   ${CMSIS_DIR}/CMSIS/Core/Include
 )
 
-if(${CORE} STREQUAL CM4)
-  list(APPEND CMSIS_CORE_SOURCES ${CMSIS_DIR}/CMSIS/Core/Include/core_cm4.h)
-elseif(${CORE} STREQUAL CM0P)
+if(${CORE} STREQUAL CM0P)
   list(APPEND CMSIS_CORE_SOURCES ${CMSIS_DIR}/CMSIS/Core/Include/core_cm0plus.h)
 elseif(${CORE} STREQUAL CM0)
   list(APPEND CMSIS_CORE_SOURCES ${CMSIS_DIR}/CMSIS/Core/Include/core_cm0.h)

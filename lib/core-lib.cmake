@@ -1,6 +1,6 @@
 pmg1_load_library(
   NAME core-lib
-  VERSION 1.1.4
+  VERSION 1.2.0
 )
 
 set(CORE_LIB_SOURCES

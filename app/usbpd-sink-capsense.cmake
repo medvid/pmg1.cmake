@@ -1,16 +1,13 @@
-# https://github.com/Infineon/mtb-example-pmg1-usbpd-sink/tree/master/USBPD_CONFIG
+# https://github.com/Infineon/mtb-example-pmg1-usbpd-sink-capsense/tree/master/USBPD_CONFIG
 pmg1_check_bsp(
-  PMG1-CY7110
-  PMG1-CY7111
-  PMG1-CY7112
   PMG1-CY7113
 )
 
-project(usbpd-sink)
+project(usbpd-sink-capsense)
 
 pmg1_load_application(
-  NAME mtb-example-pmg1-usbpd-sink
-  VERSION 2.0.0
+  NAME mtb-example-pmg1-usbpd-sink-capsense
+  VERSION 1.0.0
 )
 pmg1_add_executable(
   SOURCES
@@ -44,6 +41,7 @@ pmg1_add_executable(
   LINK_LIBRARIES
     mtb-pdl-cat2
     pdstack-pd3-snk-lite
+    capsense
   DESIGN_EZPD
     ${APP_DIR}/USBPD_CONFIG/TARGET_${BSP_NAME}/design.mtbezpd
 )

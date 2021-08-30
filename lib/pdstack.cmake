@@ -1,6 +1,6 @@
 pmg1_load_library(
   NAME pdstack
-  VERSION 1.0.0
+  VERSION 1.10.0
 )
 
 set(PDSTACK_SOURCES

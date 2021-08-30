@@ -40,7 +40,7 @@
 
     Installation path assumed in this guide:
 
-        C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2020-q4-major
+        C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.07
 
 6. _(Optional)_ Download and install Arm Compiler 6:
 
@@ -48,7 +48,7 @@
 
     Example installation path:
 
-        C:/Program Files/ARMCompiler6.13
+        C:/Program Files/ARMCompiler6.16
 
     Arm Compiler 6 is also bundled with Keil uVision 5 IDE:
 
@@ -66,7 +66,7 @@
 
     Installation path assumed in this document:
 
-        C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.4
+        C:\Program Files\IAR Systems\Embedded Workbench 9.0
 
     Note: valid license is required to use the IAR Compiler.
 
@@ -115,12 +115,12 @@
 
     Installation path assumed in this guide:
 
-        /opt/gcc-arm-none-eabi-10-2020-q4-major
+        /opt/gcc-arm-none-eabi-10.3-2021.07
 
     CLI installation example:
 
-        curl -fsSL https://developer.arm.com/-/media/Files/downloads/gnu-rm/10-2020q4/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2 -o /tmp/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
-        sudo tar -C /opt -xjf /tmp/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+        curl -fsSL https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-x86_64-linux.tar.bz2 -o /tmp/gcc-arm-none-eabi-10.3-2021.07-x86_64-linux.tar.bz2
+        sudo tar -C /opt -xjf /tmp/gcc-arm-none-eabi-10.3-2021.07-x86_64-linux.tar.bz2
 
 ## Quick Start Guide - CLI
 
@@ -148,11 +148,11 @@
 
 6. Connect PMG1-CY7110 to the host. If needed, update the KitProg firmware using fw-loader:
 
-    https://github.com/cypresssemiconductorco/Firmware-loader
+    https://github.com/Infineon/Firmware-loader
 
     Make sure the kit is in CMSIS-DAP mode.
 
-7. Program hello-world application to the PSoC 4 MCU:
+7. Program hello-world application to the PMG1 MCU:
 
         cmake --build build/PMG1-CY7110/NOOS/GCC/Debug --target hello-world_PROGRAM
 
@@ -183,9 +183,9 @@
             "cortex-debug.armToolchainPath": "${config:modustoolbox.toolsPath}/gcc/bin",
             "cmake.configureSettings": {
                 "CY_TOOLS_PATHS": "${env:HOME}/ModusToolbox/tools_2.3",
-                "GCC_TOOLCHAIN_PATH": "C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2020-q4-major",
+                "GCC_TOOLCHAIN_PATH": "C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.07",
                 "ARM_TOOLCHAIN_PATH": "C:/Keil_v5/ARM/ARMCLANG",
-                "IAR_TOOLCHAIN_PATH": "C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.4/arm"
+                "IAR_TOOLCHAIN_PATH": "C:/Program Files/IAR Systems/Embedded Workbench 9.0/arm"
             }
         }
         ```
@@ -212,8 +212,8 @@
             "cortex-debug.openocdPath": "${config:modustoolbox.toolsPath}/openocd/bin/openocd",
             "cortex-debug.armToolchainPath": "${config:modustoolbox.toolsPath}/gcc/bin",
             "cmake.configureSettings": {
-                "CY_TOOLS_PATHS": "${env:HOME}/tools_2.3",
-                "GCC_TOOLCHAIN_PATH": "/opt/gcc-arm-none-eabi-10-2020-q4-major"
+                "CY_TOOLS_PATHS": "${env:HOME}/ModusToolbox/tools_2.3",
+                "GCC_TOOLCHAIN_PATH": "/opt/gcc-arm-none-eabi-10.3-2021.07"
             }
         }
         ```
@@ -267,8 +267,7 @@ Azure Pipeline is executed for each commit in master and each GitHub Pull Reques
 
 https://dev.azure.com/vmedvid/pmg1.cmake/_build?definitionId=16&_a=summary
 
-The pipeline builds all applications with GCC 10.2.1 toolchain on [vmmedvid/psoc6.cmake](https://hub.docker.com/r/vmmedvid/psoc6.cmake) Docker image.
-The docker image is built on top of unofficial ModusToolbox Docker image: [vmmedvid/modustoolbox](https://hub.docker.com/r/vmmedvid/modustoolbox).
+The pipeline builds all applications with GCC 10.3.1 toolchain on [vmmedvid/modustoolbox-cmake](https://hub.docker.com/r/vmmedvid/modustoolbox-cmake) Docker image.
 
 ## Additional tips
 
@@ -279,7 +278,7 @@ The docker image is built on top of unofficial ModusToolbox Docker image: [vmmed
     Often it is useful to call the ninja with additional arguments.
     For example, the below command enables verbosity and disables parallel compilation:
 
-        cd build/CY8CKIT-149/NOOS/GCC/Debug
+        cd build/PMG1-CY7110/NOOS/GCC/Debug
         ninja -v -j1
 
 * When switching between toolchain versions (cmake -DGCC_TOOLCHAIN_PATH), the old toolchain version
@@ -289,10 +288,10 @@ The docker image is built on top of unofficial ModusToolbox Docker image: [vmmed
         rm -rf build/PMG1-CY7110/NOOS/GCC/Debug
         cmake -G Ninja -S . -B build/PMG1-CY7110/NOOS/GCC/Debug \
             -DTARGET=PMG1-CY7110 -DOS=NOOS -DTOOLCHAIN=GCC \
-            -DGCC_TOOLCHAIN_PATH="C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2020-q4-major" \
+            -DGCC_TOOLCHAIN_PATH="C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.07" \
             -DCMAKE_BUILD_TYPE=Debug
 
-[ModusToolboxForWindows]: http://dlm.cypress.com.edgesuite.net/akdlm/downloadmanager/software/ModusToolbox/ModusToolbox_2.2/ModusToolbox_2.2.0.2801-windows-install.exe
-[ModusToolboxForMac]: http://dlm.cypress.com.edgesuite.net/akdlm/downloadmanager/software/ModusToolbox/ModusToolbox_2.2/ModusToolbox_2.2.0.2801-macos-install.pkg
-[ModusToolboxForLinux]: http://dlm.cypress.com.edgesuite.net/akdlm/downloadmanager/software/ModusToolbox/ModusToolbox_2.2/ModusToolbox_2.2.0.2801-linux-install.tar.gz
-[hello-world]: https://github.com/cypresssemiconductorco/mtb-example-pmg1-hello-world/blob/master/README.md#operation
+[ModusToolboxForWindows]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3/ModusToolbox_2.3.0.4276-windows-install.exe
+[ModusToolboxForMac]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3/ModusToolbox_2.3.0.4276-macos-install.pkg
+[ModusToolboxForLinux]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3/ModusToolbox_2.3.0.4276-macos-install.pkg
+[hello-world]: https://github.com/Infineon/mtb-example-pmg1-hello-world/blob/master/README.md#operation

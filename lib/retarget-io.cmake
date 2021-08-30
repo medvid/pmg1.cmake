@@ -1,6 +1,6 @@
 pmg1_load_library(
   NAME retarget-io
-  VERSION 1.1.1
+  VERSION 1.2.0
 )
 
 set(RETARGET_IO_SOURCES

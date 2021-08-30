@@ -12,7 +12,11 @@ set(FETCHCONTENT_BASE_DIR "${CMAKE_SOURCE_DIR}/build/_deps" CACHE STRING "" FORC
 # CY_TOOLS_PATHS - base tools directory (ModusToolbox/tools_X.Y)
 # CY_TOOL_CFG_BACKEND_CLI - Device Configurator Backend CLI
 # CY_TOOL_CAPSENSE_CLI - CapSense Configurator CLI
+# CY_TOOL_USBDEV_CLI - USB Device Configurator CLI
 # CY_TOOL_EZPD_CLI - EZ-PD Configurator CLI
+# CY_MCUELFTOOL - ElfTool CLI
+# CY_OPENOCD_BIN - OpenOCD CLI
+# CY_OPENOCD_SCRIPTS - OpenOCD scripts directory
 #
 # This macro can be used in one of two ways:
 #
@@ -74,7 +78,9 @@ macro(pmg1_add_tools)
   # Set ModusToolbox tool paths
   set(CY_TOOL_CFG_BACKEND_CLI ${CY_TOOLS_PATHS}/cfg-backend-cli/cfg-backend-cli)
   set(CY_TOOL_CAPSENSE_CLI ${CY_TOOLS_PATHS}/capsense-configurator/capsense-configurator-cli)
+  set(CY_TOOL_USBDEV_CLI ${CY_TOOLS_PATHS}/usbdev-configurator/usbdev-configurator-cli)
   set(CY_TOOL_EZPD_CLI ${CY_TOOLS_PATHS}/ez-pd-configurator/ez-pd-configurator-cli)
+  set(CY_MCUELFTOOL ${CY_TOOLS_PATHS}/cymcuelftool-1.0/bin/cymcuelftool)
 
   # Set OpenOCD related paths
   set(CY_OPENOCD_BIN ${CY_TOOLS_PATHS}/openocd/bin/openocd)
@@ -220,7 +226,7 @@ macro(pmg1_load_bsp)
 
   # If URL is not set, assume this is standard BSP from Cypress GitHub
   if(NOT DEFINED BSP_URL)
-    set(BSP_URL https://github.com/cypresssemiconductorco/TARGET_${BSP_NAME})
+    set(BSP_URL https://github.com/Infineon/TARGET_${BSP_NAME})
   endif()
 
   # If TAG is not set, assume standard release tag
@@ -261,7 +267,7 @@ macro(pmg1_load_library)
 
   # If URL is not set, assume this is standard lirbary from Cypress GitHub
   if(NOT DEFINED LIB_URL)
-    set(LIB_URL https://github.com/cypresssemiconductorco/${LIB_NAME})
+    set(LIB_URL https://github.com/Infineon/${LIB_NAME})
   endif()
 
   # If TAG is not set, assume standard release tag
@@ -312,7 +318,7 @@ macro(pmg1_load_application)
 
   # If URL is not set, assume this is standard lirbary from Cypress GitHub
   if(NOT DEFINED APP_URL)
-    set(APP_URL https://github.com/cypresssemiconductorco/${APP_NAME})
+    set(APP_URL https://github.com/Infineon/${APP_NAME})
   endif()
 
   # If TAG is not set, assume standard release tag
@@ -387,17 +393,9 @@ macro(pmg1_add_design_modus design_modus var_source_dir var_sources)
   unset(generated_sources)
   unset(design_dir)
 
-  # Check lib/mtb-pdl-cat2.cmake is already included
-  if(NOT DEFINED MTB_PDL_CAT2_DIR)
-    message(FATAL_ERROR "pmg1_add_design_modus: MTB_PDL_CAT2_DIR is not defined.")
-  endif()
-  if(NOT EXISTS ${MTB_PDL_CAT2_DIR}/devicesupport.xml)
-    message(FATAL_ERROR "pmg1_add_design_modus: ${MTB_PDL_CAT2_DIR} doesn't point to device support library.")
-  endif()
-
   # Define custom recipe to update design.modus generated source
   add_custom_command(
-    COMMAND ${CY_TOOL_CFG_BACKEND_CLI} --library ${MTB_PDL_CAT2_DIR}/devicesupport.xml --tools ${CY_TOOLS_PATHS} --build ${design_modus} --readonly
+    COMMAND ${CY_TOOL_CFG_BACKEND_CLI} --library ${CMAKE_SOURCE_DIR}/lib/mtb-pdl-cat2/devicesupport.xml --tools ${CY_TOOLS_PATHS} --build ${design_modus} --readonly
     DEPENDS ${design_modus}
     OUTPUT  ${${var_sources}}
     COMMENT "Generating Device Configuration for ${design_modus}"
@@ -425,6 +423,30 @@ macro(pmg1_add_design_capsense design_capsense var_source_dir var_sources)
     DEPENDS ${design_capsense}
     OUTPUT  ${${var_sources}}
     COMMENT "Generating CapSense Configuration for ${design_capsense}"
+  )
+endmacro()
+
+# Set variables and custom recipes for design.cyusbdev GeneratedSource
+macro(psoc6_add_design_usbdev design_usbdev var_source_dir var_sources)
+  if(NOT EXISTS ${design_usbdev})
+    message(FATAL_ERROR "psoc6_add_design_usbdev: ${design_usbdev} doesn't exist.")
+  endif()
+
+  # Initialize var_source_dir and var_sources
+  get_filename_component(design_dir ${design_usbdev} DIRECTORY)
+  set(${var_source_dir} ${design_dir}/GeneratedSource)
+  set(${var_sources}
+    ${${var_source_dir}}/cycfg_usbdev.h
+    ${${var_source_dir}}/cycfg_usbdev.c
+  )
+  unset(design_dir)
+
+  # Define custom recipe to update design.cyusbdev generated source
+  add_custom_command(
+    COMMAND ${CY_TOOL_USBDEV_CLI} -c ${design_usbdev}
+    DEPENDS ${design_usbdev}
+    OUTPUT  ${${var_sources}}
+    COMMENT "Generating USB Device Configuration for ${design_usbdev}"
   )
 endmacro()
 
@@ -474,14 +496,14 @@ macro(pmg1_add_bsp_design_capsense design_capsense)
   )
   add_library(bsp_design_capsense STATIC EXCLUDE_FROM_ALL ${BSP_CAPSENSE_GENERATED_SOURCES})
   target_include_directories(bsp_design_capsense PUBLIC ${BSP_CAPSENSE_GENERATED_SOURCE_DIR})
-  target_link_libraries(bsp_design_capsense PUBLIC mtb-pdl-cat2 capsense)
+  target_link_libraries(bsp_design_capsense PUBLIC mtb-hal-cat2 capsense)
 endmacro()
 
 # Set application target variables and recipes
 macro(pmg1_add_executable)
   # Parse the expected arguments
   cmake_parse_arguments(TARGET ""
-    "NAME;DESIGN_MODUS;DESIGN_CAPSENSE;DESIGN_EZPD;LINKER_SCRIPT"
+    "NAME;DESIGN_MODUS;DESIGN_CAPSENSE;DESIGN_USBDEV;DESIGN_EZPD;LINKER_SCRIPT"
     "SOURCES;INCLUDE_DIRS;DEFINES;LINK_LIBRARIES;GENERATED_SOURCES"
     ${ARGN}
   )
@@ -535,6 +557,17 @@ macro(pmg1_add_executable)
     target_include_directories(${TARGET_NAME} PRIVATE ${CUSTOM_CAPSENSE_GENERATED_SOURCE_DIR})
   elseif(TARGET bsp_design_capsense)
     list(PREPEND TARGET_LINK_LIBRARIES bsp_design_capsense)
+  endif()
+
+  # Check if the application provides custom design.cyusbdev
+  if(DEFINED TARGET_DESIGN_USBDEV)
+    psoc6_add_design_usbdev(
+      ${TARGET_DESIGN_USBDEV}
+      CUSTOM_USBDEV_GENERATED_SOURCE_DIR
+      CUSTOM_USBDEV_GENERATED_SOURCES
+    )
+    target_sources(${TARGET_NAME} PRIVATE ${CUSTOM_USBDEV_GENERATED_SOURCES})
+    target_include_directories(${TARGET_NAME} PRIVATE ${CUSTOM_USBDEV_GENERATED_SOURCE_DIR})
   endif()
 
   # Check if the application provides custom design.cyezpd
@@ -594,6 +627,11 @@ macro(pmg1_add_executable)
     # Print the memory usage summary
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
       COMMAND ${GCC_TOOLCHAIN_PATH}/bin/arm-none-eabi-size --format=berkeley --totals "$<TARGET_FILE:${TARGET_NAME}>"
+      USES_TERMINAL)
+
+    # Print the ELF section headers
+    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+      COMMAND ${GCC_TOOLCHAIN_PATH}/bin/arm-none-eabi-readelf -S "$<TARGET_FILE:${TARGET_NAME}>"
       USES_TERMINAL)
   elseif(${TOOLCHAIN} STREQUAL ARM)
     # Convert ELF to HEX
@@ -693,4 +731,12 @@ macro(pmg1_add_bsp_startup startup linker_script)
   else()
     message(FATAL_ERROR "pmg1_add_bsp_startup: TOOLCHAIN ${TOOLCHAIN} is not supported.")
   endif()
+endmacro()
+
+# Configure post-build event to generate *.cyacd2
+macro(pmg1_add_cyacd2 target_name)
+  add_custom_command(TARGET ${target_name} POST_BUILD
+    COMMAND ${CY_MCUELFTOOL} --sign "$<TARGET_FILE:${target_name}>" CRC --output ${CMAKE_CURRENT_BINARY_DIR}/${target_name}_crc.elf
+    COMMAND ${CY_MCUELFTOOL} -P ${CMAKE_CURRENT_BINARY_DIR}/${target_name}_crc.elf --output ${CMAKE_CURRENT_BINARY_DIR}/${target_name}_crc.cyacd2
+    USES_TERMINAL)
 endmacro()

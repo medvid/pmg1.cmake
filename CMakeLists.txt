@@ -19,8 +19,19 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Configure target BSP, load common libraries
+# Configure target BSP
 pmg1_configure_bsp()
+
+# Include libraries
+include(lib/cmsis.cmake)
+include(lib/core-lib.cmake)
+include(lib/mtb-pdl-cat2.cmake)
+include(lib/mtb-hal-cat2.cmake)
+include(lib/retarget-io.cmake)
+include(lib/capsense.cmake)
+include(lib/dfu.cmake)
+include(lib/pdstack.cmake)
+include(lib/usbdev.cmake)
 
 # Configure target OS, load OS-specific libraries and applications
 pmg1_configure_os()

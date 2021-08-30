@@ -48,14 +48,14 @@ trap status EXIT
 KERNEL="$($(which uname) -s)"
 case "$KERNEL" in
   CYGWIN*|MINGW*|MSYS*)
-    export GCC_TOOLCHAIN_PATH="$(cygpath --mixed "${GCC_TOOLCHAIN_PATH:-C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2020-q4-major}")"
-    export ARM_TOOLCHAIN_PATH="$(cygpath --mixed "${ARM_TOOLCHAIN_PATH:-C:/Program Files/ARMCompiler6.13}")"
-    export IAR_TOOLCHAIN_PATH="$(cygpath --mixed "${IAR_TOOLCHAIN_PATH:-C:/Program Files (x86)/IAR Systems/Embedded Workbench 8.4/arm}")"
+    export GCC_TOOLCHAIN_PATH="$(cygpath --mixed "${GCC_TOOLCHAIN_PATH:-C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.07}")"
+    export ARM_TOOLCHAIN_PATH="$(cygpath --mixed "${ARM_TOOLCHAIN_PATH:-C:/Keil_v5/ARM/ARMCLANG}")"
+    export IAR_TOOLCHAIN_PATH="$(cygpath --mixed "${IAR_TOOLCHAIN_PATH:-C:/Program Files/IAR Systems/Embedded Workbench 9.0/arm}")"
     export LLVM_TOOLCHAIN_PATH="$(cygpath --mixed "${LLVM_TOOLCHAIN_PATH:-C:/Program Files/LLVM}")"
     default_toolchain_list="GCC ARM IAR"
     ;;
   Linux*)
-    export GCC_TOOLCHAIN_PATH="${GCC_TOOLCHAIN_PATH:-/opt/gcc-arm-none-eabi-10-2020-q4-major}"
+    export GCC_TOOLCHAIN_PATH="${GCC_TOOLCHAIN_PATH:-/opt/gcc-arm-none-eabi-10.3-2021.07}"
     export LLVM_TOOLCHAIN_PATH="${LLVM_TOOLCHAIN_PATH:-/usr}"
     default_toolchain_list="GCC"
     ;;
@@ -112,6 +112,7 @@ default_bsp_list=(
   PMG1-CY7110
   PMG1-CY7111
   PMG1-CY7112
+  PMG1-CY7113
 )
 default_os_list=(
   NOOS
@@ -138,7 +139,8 @@ for bsp in "${bsp_list[@]}"; do
     for toolchain in "${toolchain_list[@]}"; do
       for config in "${config_list[@]}"; do
         id=$bsp/$os/$toolchain/$config
-        echo id=$id
+        echo
+        echo build/$id
         cfg_cmd="cmake -S . -B build/$id -G Ninja -DTARGET=$bsp -DOS=$os -DTOOLCHAIN=$toolchain -DCMAKE_BUILD_TYPE=$config"
         bld_cmd="cmake --build build/$id"
         if run_cmd $cfg_cmd && run_cmd $bld_cmd; then

@@ -1,10 +1,7 @@
-# NOTE: reusing psoc6.cmake docker image
-# SW dependencies are the same (CMake, Ninja, GCC, LLVM, ModusToolbox 2.3)
-
 resources:
   containers:
-  - container: psoc6
-    image: vmmedvid/psoc6.cmake:latest
+  - container: mtb23
+    image: vmmedvid/modustoolbox-cmake:mtb23
 
 trigger:
 - master
@@ -15,8 +12,8 @@ pr:
 jobs:
 - job: linux_gcc
   pool:
-    vmImage: 'ubuntu-18.04'
-  container: psoc6
+    vmImage: 'ubuntu-20.04'
+  container: mtb23
   steps:
   - task: Bash@3
     inputs:
@@ -24,4 +21,3 @@ jobs:
       arguments: --toolchain GCC
     env:
       CMAKE_GIT_SHALLOW: ON
-      GCC_TOOLCHAIN_PATH: /opt/gcc-arm-none-eabi-10-2020-q4-major
