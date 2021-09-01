@@ -20,9 +20,6 @@ set(BSP_LINK_LIBRARIES
   mtb-hal-cat2
 )
 
-# Include BSP_DIR globally
-include_directories(${BSP_DIR})
-
 add_definitions(-DCY_USING_HAL)
 pmg1_add_component(BSP_DESIGN_MODUS)
 pmg1_add_component(CAT2)

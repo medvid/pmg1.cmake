@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-* ModusToolbox 2.3
+* ModusToolbox 2.3.1
 * CMake >= 3.16
 * Ninja build system
 
@@ -14,15 +14,19 @@
 
     [https://www.cypress.com/ModusToolboxForWindows][ModusToolboxForWindows]
 
-2. Download and install the latest Git for Windows:
+2. Download and install ModusToolbox 2.3.1 (patch on top of 2.3):
+
+    [https://www.cypress.com/file/521751/download][ModusToolboxForWindows-2.3.1]
+
+3. Download and install the latest Git for Windows:
 
     https://gitforwindows.org/
 
-3. Download and install the latest CMake win64-x64 Installer:
+4. Download and install the latest CMake win64-x64 Installer:
 
     https://cmake.org/download/
 
-4. Download Ninja executable, add to user PATH:
+5. Download Ninja executable, add to user PATH:
 
     https://github.com/ninja-build/ninja/releases
 
@@ -34,7 +38,7 @@
 
     Then add %LOCALAPPDATA%\Programs\Ninja to user PATH in Windows advanced system settings.
 
-5. _(Optional)_ Download and install the latest GNU Arm Embedded toolchain:
+6. _(Optional)_ Download and install the latest GNU Arm Embedded toolchain:
 
     https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
 
@@ -42,7 +46,7 @@
 
         C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2021.07
 
-6. _(Optional)_ Download and install Arm Compiler 6:
+7. _(Optional)_ Download and install Arm Compiler 6:
 
     https://developer.arm.com/tools-and-software/embedded/arm-compiler/downloads/version-6
 
@@ -60,7 +64,7 @@
 
     Note: valid license is required to use the Arm Compiler.
 
-7. _(Optional)_ Download and install IAR Embedded Workbench for ARM:
+8. _(Optional)_ Download and install IAR Embedded Workbench for ARM:
 
     https://www.iar.com/iar-embedded-workbench/#!?architecture=Arm
 
@@ -76,17 +80,21 @@
 
     [https://www.cypress.com/ModusToolboxForMac][ModusToolboxForMac]
 
-2. Install Xcode - this provides git client
+2. Download and install ModusToolbox 2.3.1 (patch on top of 2.3):
 
-3. Download and install Homebrew Package Manager:
+    [https://www.cypress.com/file/521746/download][ModusToolboxForMac-2.3.1]
+
+3. Install Xcode - this provides git client
+
+4. Download and install Homebrew Package Manager:
 
     https://brew.sh
 
-4. Install CMake and Ninja using Homebrew:
+5. Install CMake and Ninja using Homebrew:
 
     brew install cmake ninja
 
-5. _(Optional)_ Download and install the latest GNU Arm Embedded toolchain:
+6. _(Optional)_ Download and install the latest GNU Arm Embedded toolchain:
 
     https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
 
@@ -100,7 +108,11 @@
 
     [https://www.cypress.com/ModusToolboxForLinux][ModusToolboxForLinux]
 
-2. Download and install Git, CMake>=3.16 and Ninja using the system package manager.
+2. Download and install ModusToolbox 2.3.1 (patch on top of 2.3):
+
+    [https://www.cypress.com/file/521741/download][ModusToolboxForLinux-2.3.1]
+
+3. Download and install Git, CMake>=3.16 and Ninja using the system package manager.
 
     Example for Ubuntu 20.04:
 
@@ -109,7 +121,7 @@
     Note: Ubuntu 18.04 provides an old version CMake, not compatible with CMake recipes in this repo.
     To download latest CMake package, follow the instructions at https://apt.kitware.com.
 
-3. _(Optional)_ Download and install the latest GNU Arm Embedded toolchain:
+4. _(Optional)_ Download and install the latest GNU Arm Embedded toolchain:
 
     https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads
 
@@ -293,5 +305,8 @@ The pipeline builds all applications with GCC 10.3.1 toolchain on [vmmedvid/modu
 
 [ModusToolboxForWindows]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3/ModusToolbox_2.3.0.4276-windows-install.exe
 [ModusToolboxForMac]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3/ModusToolbox_2.3.0.4276-macos-install.pkg
-[ModusToolboxForLinux]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3/ModusToolbox_2.3.0.4276-macos-install.pkg
+[ModusToolboxForLinux]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3/ModusToolbox_2.3.0.4276-linux-install.tar.gz
+[ModusToolboxForWindows-2.3.1]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3.1/ModusToolbox_2.3.1.4663-windows-install.exe
+[ModusToolboxForMac-2.3.1]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3.1/ModusToolbox_2.3.1.4663-macos-install.pkg
+[ModusToolboxForLinux-2.3.1]: https://download.cypress.com/downloadmanager/software/ModusToolbox/ModusToolbox_2.3.1/ModusToolbox_2.3.1.4663-linux-install.tar.gz
 [hello-world]: https://github.com/Infineon/mtb-example-pmg1-hello-world/blob/master/README.md#operation

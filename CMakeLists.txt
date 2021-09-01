@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.16)
 include(pmg1.cmake)
 
 # Load ModusToolbox tool definitions
-pmg1_add_tools(VERSION 2.3)
+pmg1_add_tools(VERSION 2.3.1)
 
 # Configure toolchain definitions
 pmg1_configure_toolchain()

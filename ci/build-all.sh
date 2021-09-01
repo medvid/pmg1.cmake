@@ -74,6 +74,7 @@ declare -a bsp_list
 declare -a os_list
 declare -a toolchain_list
 declare -a config_list
+declare -a cmake_args
 
 # parse command line inputs
 while (( $# > 0 )); do
@@ -99,9 +100,7 @@ while (( $# > 0 )); do
       config_list+=("$1")
       ;;
     *)
-      echo "[ERROR] Unknown parameter $1"
-      exit 1
-      ;;
+      cmake_args+=("$1")
   esac
   shift
 done
@@ -140,9 +139,8 @@ for bsp in "${bsp_list[@]}"; do
       for config in "${config_list[@]}"; do
         id=$bsp/$os/$toolchain/$config
         echo
-        echo build/$id
         cfg_cmd="cmake -S . -B build/$id -G Ninja -DTARGET=$bsp -DOS=$os -DTOOLCHAIN=$toolchain -DCMAKE_BUILD_TYPE=$config"
-        bld_cmd="cmake --build build/$id"
+        bld_cmd="cmake --build build/$id ${cmake_args[@]}"
         if run_cmd $cfg_cmd && run_cmd $bld_cmd; then
           summary+="${GREEN}PASS: ${id}${NOCOLOR}${NL}"
         else

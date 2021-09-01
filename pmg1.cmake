@@ -17,38 +17,28 @@ set(FETCHCONTENT_BASE_DIR "${CMAKE_SOURCE_DIR}/build/_deps" CACHE STRING "" FORC
 # CY_MCUELFTOOL - ElfTool CLI
 # CY_OPENOCD_BIN - OpenOCD CLI
 # CY_OPENOCD_SCRIPTS - OpenOCD scripts directory
-#
-# This macro can be used in one of two ways:
-#
-# A. Define CY_TOOLS_PATHS as CMake option or system environment variable
-#    Example:
-#      cmake -DCY_TOOLS_PATHS=C:/ModusToolbox/tools_2.3
-#      pmg1_add_tools()
-#
-# B. Pass optional VERSION argument to this macro to find the ModusToolbox
-#    tools at the default location:
-#    Windows: ${USERPROFILE}/ModusToolbox/tools_${VERSION}
-#    Linux:   ${HOME}/ModusToolbox/tools_${VERSION}
-#    MacOS:   /Applications/ModusToolbox/tools_${VERSION}
-#    Example:
-#      pmg1_add_tools(VERSION 2.3)
-#
 macro(pmg1_add_tools)
   # Check CY_TOOLS_PATHS is set as environment variable
   if(NOT DEFINED CY_TOOLS_PATHS AND DEFINED ENV{CY_TOOLS_PATHS})
     set(CY_TOOLS_PATHS "$ENV{CY_TOOLS_PATHS}")
   endif()
 
+  # Parse the expected one-value arguments
+  cmake_parse_arguments(TOOLS "" "VERSION" "" ${ARGN})
+
+  # VERSION is the required argument
+  if(NOT DEFINED TOOLS_VERSION)
+    message(FATAL_ERROR "psoc6_add_tools: missing required VERSION argument.")
+  endif()
+
+  string(REPLACE "." ";" _tools_version_list ${TOOLS_VERSION})
+  list(GET _tools_version_list 0 TOOLS_VERSION_MAJOR)
+  list(GET _tools_version_list 1 TOOLS_VERSION_MINOR)
+  list(GET _tools_version_list 2 TOOLS_VERSION_PATCH)
+  unset(_tools_version_list)
+
   # Try to determine the default path for a provided tools VERSION
   if(NOT DEFINED CY_TOOLS_PATHS)
-    # Parse the expected one-value arguments
-    cmake_parse_arguments(TOOLS "" "VERSION" "" ${ARGN})
-
-    # VERSION is the required argument
-    if(NOT DEFINED TOOLS_VERSION)
-      message(FATAL_ERROR "pmg1_add_tools: missing required VERSION argument.")
-    endif()
-
     # Determine the default path to ModusToolbox installation
     if(WIN32) # Windows
       set(MODUSTOOLBOX_DIR "$ENV{USERPROFILE}/ModusToolbox")
@@ -58,7 +48,7 @@ macro(pmg1_add_tools)
       set(MODUSTOOLBOX_DIR "$ENV{HOME}/ModusToolbox")
     endif()
 
-    set(CY_TOOLS_PATHS ${MODUSTOOLBOX_DIR}/tools_${TOOLS_VERSION})
+    set(CY_TOOLS_PATHS ${MODUSTOOLBOX_DIR}/tools_${TOOLS_VERSION_MAJOR}.${TOOLS_VERSION_MINOR})
 
     # Clear the local variables
     unset(MODUSTOOLBOX_DIR)
@@ -627,11 +617,6 @@ macro(pmg1_add_executable)
     # Print the memory usage summary
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
       COMMAND ${GCC_TOOLCHAIN_PATH}/bin/arm-none-eabi-size --format=berkeley --totals "$<TARGET_FILE:${TARGET_NAME}>"
-      USES_TERMINAL)
-
-    # Print the ELF section headers
-    add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
-      COMMAND ${GCC_TOOLCHAIN_PATH}/bin/arm-none-eabi-readelf -S "$<TARGET_FILE:${TARGET_NAME}>"
       USES_TERMINAL)
   elseif(${TOOLCHAIN} STREQUAL ARM)
     # Convert ELF to HEX

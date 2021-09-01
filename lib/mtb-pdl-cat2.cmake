@@ -157,6 +157,7 @@ set(MTB_PDL_CAT2_SOURCES
 set(MTB_PDL_CAT2_INCLUDE_DIRS
   ${MTB_PDL_CAT2_DIR}/devices/include
   ${MTB_PDL_CAT2_DIR}/drivers/include
+  ${BSP_DIR} # CMSIS startup headers
 )
 set(MTB_PDL_CAT2_LINK_LIBRARIES
   core-lib cmsis-core
