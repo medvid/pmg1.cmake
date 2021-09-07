@@ -94,13 +94,14 @@ while (( $# > 0 )); do
       shift
       toolchain_list+=("$1")
       ;;
-    -c | --config)
+    -g | --config)
       [[ $# -le 1 ]] && { echo "[ERROR] $1 argument requires value"; exit 1; }
       shift
       config_list+=("$1")
       ;;
     *)
       cmake_args+=("$1")
+      ;;
   esac
   shift
 done
@@ -131,7 +132,7 @@ default_config_list=(
 echo "TARGET list: ${bsp_list[*]}"
 echo "OS list: ${os_list[*]}"
 echo "TOOLCHAIN list: ${toolchain_list[*]}"
-echo "CMAKE_BUILD_TYPE list: ${config_list[*]}"
+echo "CONFIG list: ${config_list[*]}"
 
 for bsp in "${bsp_list[@]}"; do
   for os in "${os_list[@]}"; do

@@ -74,6 +74,14 @@
 
     Note: valid license is required to use the IAR Compiler.
 
+10. _(Optional)_ Download and install LLVM/Clang Compiler:
+
+    https://github.com/llvm/llvm-project/releases/download/llvmorg-12.0.1/LLVM-12.0.1-win64.exe
+
+    Installation path assumed in this document:
+
+        C:/Program Files/LLVM
+
 ### Install prerequisites - macOS
 
 1. Download and install ModusToolbox 2.3:
@@ -251,7 +259,7 @@ Arguments:
 * -b/--bsp - Select target BSP (PMG1-CY7110/PMG1-CY7111/PMG1-CY7112/...)
 * -o/--os - Select target OS (NOOS/...)
 * -t/--toolchain - Select toolchain (GCC/ARM/IAR/LLVM)
-* -c/--config - Select CMake build configuration (Debug/Release)
+* -g/--config - Select CMake build configuration (Debug/Release)
 
 Each argument can be supplied multiple times.
 
@@ -267,11 +275,11 @@ Build everything using IAR and ARM toolchains:
 
 Build all PMG1-CY7110 and PMG1-CY7111 BSP compatible applications in Debug mode:
 
-    ./ci/build-all.sh -b PMG1-CY7110 -b PMG1-CY7111 -c Debug
+    ./ci/build-all.sh -b PMG1-CY7110 -b PMG1-CY7111 -g Debug
 
 Build all applications in Release mode:
 
-    ./ci/build-all.sh -c Release
+    ./ci/build-all.sh -g Release
 
 #### Azure Pipelines
 

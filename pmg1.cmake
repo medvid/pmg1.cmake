@@ -28,7 +28,7 @@ macro(pmg1_add_tools)
 
   # VERSION is the required argument
   if(NOT DEFINED TOOLS_VERSION)
-    message(FATAL_ERROR "psoc6_add_tools: missing required VERSION argument.")
+    message(FATAL_ERROR "pmg1_add_tools: missing required VERSION argument.")
   endif()
 
   string(REPLACE "." ";" _tools_version_list ${TOOLS_VERSION})
@@ -417,9 +417,9 @@ macro(pmg1_add_design_capsense design_capsense var_source_dir var_sources)
 endmacro()
 
 # Set variables and custom recipes for design.cyusbdev GeneratedSource
-macro(psoc6_add_design_usbdev design_usbdev var_source_dir var_sources)
+macro(pmg1_add_design_usbdev design_usbdev var_source_dir var_sources)
   if(NOT EXISTS ${design_usbdev})
-    message(FATAL_ERROR "psoc6_add_design_usbdev: ${design_usbdev} doesn't exist.")
+    message(FATAL_ERROR "pmg1_add_design_usbdev: ${design_usbdev} doesn't exist.")
   endif()
 
   # Initialize var_source_dir and var_sources
@@ -551,7 +551,7 @@ macro(pmg1_add_executable)
 
   # Check if the application provides custom design.cyusbdev
   if(DEFINED TARGET_DESIGN_USBDEV)
-    psoc6_add_design_usbdev(
+    pmg1_add_design_usbdev(
       ${TARGET_DESIGN_USBDEV}
       CUSTOM_USBDEV_GENERATED_SOURCE_DIR
       CUSTOM_USBDEV_GENERATED_SOURCES
@@ -623,7 +623,6 @@ macro(pmg1_add_executable)
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
       COMMAND ${ARM_TOOLCHAIN_PATH}/bin/fromelf --output "${_hex_path}" --i32combined "$<TARGET_FILE:${TARGET_NAME}>"
       USES_TERMINAL)
-    unset(_hex_path)
 
     # Generate disassembly listing
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
@@ -639,7 +638,6 @@ macro(pmg1_add_executable)
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
       COMMAND ${IAR_TOOLCHAIN_PATH}/bin/ielftool --ihex "$<TARGET_FILE:${TARGET_NAME}>" "${_hex_path}"
       USES_TERMINAL)
-    unset(_hex_path)
 
     # Generate disassembly listing
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
@@ -666,7 +664,6 @@ macro(pmg1_add_executable)
       COMMAND ${LLVM_TOOLCHAIN_PATH}/bin/llvm-size --format=berkeley --totals "$<TARGET_FILE:${TARGET_NAME}>"
       USES_TERMINAL)
   endif()
-  unset(_hex_path)
 
   # Define custom command for CMSIS-DAP programming
   add_custom_target(${TARGET_NAME}_PROGRAM
@@ -679,6 +676,10 @@ macro(pmg1_add_executable)
     COMMENT "Program ${TARGET_NAME} application"
     VERBATIM USES_TERMINAL
   )
+
+  # Clear local variables
+  unset(_hex_path)
+  unset(_asm_path)
 endmacro()
 
 # Check the application is applicable to the target BSP

@@ -25,4 +25,5 @@ lib/*
 !.vscode/settings-template-*.json
 *.code-workspace
 
+logs
 keys

@@ -30,6 +30,6 @@ else()
   message(FATAL_ERROR "cmsis: TOOLCHAIN ${TOOLCHAIN} is not supported.")
 endif()
 
-add_library(cmsis-core INTERFACE)
+add_library(cmsis-core INTERFACE EXCLUDE_FROM_ALL)
 target_sources(cmsis-core INTERFACE ${CMSIS_CORE_SOURCES})
 target_include_directories(cmsis-core INTERFACE ${CMSIS_CORE_INCLUDE_DIRS})
